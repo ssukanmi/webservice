@@ -15,5 +15,5 @@ func TestHealthRoute(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/healthz", nil)
 	router.ServeHTTP(w, req)
 
-	assert.Equal(t, 200, w.Code)
+	assert.Equal(t, 400, w.Code)
 }
