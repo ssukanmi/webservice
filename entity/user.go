@@ -12,7 +12,7 @@ type User struct {
 	FirstName string    `gorm:"type:varchar(255)" json:"first_name"`
 	LastName  string    `gorm:"type:varchar(255)" json:"last_name"`
 	Password  string    `gorm:"->;<-;not null" json:"-"`
-	Username  string    `gorm:"uniqueIndex;type:varchar(255)" json:"username"`
+	Username  string    `gorm:"unique;type:varchar(255)" json:"username"`
 	CreatedAt time.Time `gorm:"column:account_created" json:"account_created"`
 	UpdatedAt time.Time `gorm:"column:account_updated" json:"account_updated"`
 }

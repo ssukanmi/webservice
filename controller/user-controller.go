@@ -8,6 +8,7 @@ import (
 	"github.com/ssukanmi/webservice/dto"
 	"github.com/ssukanmi/webservice/entity"
 	"github.com/ssukanmi/webservice/repo"
+	"github.com/ssukanmi/webservice/service"
 )
 
 type UserController interface {
@@ -35,6 +36,14 @@ func (uc *userController) CreateUser(c *gin.Context) {
 		})
 		return
 	}
+
+	if !(service.ValidateEmail(userCreateDTO.Username)) {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"message": "Invalid email used for username",
+		})
+		return
+	}
+
 	user := entity.User{}
 	err = smapping.FillStruct(&user, smapping.MapFields(&userCreateDTO))
 	if err != nil {
@@ -59,7 +68,7 @@ func (uc *userController) GetUser(c *gin.Context) {
 	user, err := uc.userRepo.FindByUsername(username)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			"message": "Unable to user from the database" + err.Error(),
+			"message": "Unable to user get from the database" + err.Error(),
 		})
 		return
 	}
@@ -93,5 +102,5 @@ func (uc *userController) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusNoContent, user)
 }
