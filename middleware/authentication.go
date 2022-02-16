@@ -14,7 +14,7 @@ func BasicAuth(db *gorm.DB) gin.HandlerFunc {
 		username, password, hasAuth := c.Request.BasicAuth()
 		if !(hasAuth && authenticateUser(username, password, db)) {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-				"message": "Uable to authenticate",
+				"message": "Unable to authenticate",
 			})
 			return
 		}

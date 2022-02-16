@@ -67,7 +67,31 @@ func (uc *userController) GetUser(c *gin.Context) {
 }
 
 func (uc *userController) UpdateUser(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"message": "In update user",
-	})
+	userUpdateDTO := dto.UserUpdateDTO{}
+	err := c.ShouldBindJSON(&userUpdateDTO)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"message": "Unable to bind json body" + err.Error(),
+		})
+		return
+	}
+	user := entity.User{}
+	err = smapping.FillStruct(&user, smapping.MapFields(&userUpdateDTO))
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"message": "Failed to swap maps" + err.Error(),
+		})
+		return
+	}
+
+	username, _, _ := c.Request.BasicAuth()
+	user, err = uc.userRepo.UpdateUser(username, user)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"message": "Unable to update user in the database" + err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, user)
 }

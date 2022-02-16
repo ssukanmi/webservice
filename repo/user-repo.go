@@ -9,6 +9,7 @@ import (
 type UserRepository interface {
 	InsertUser(user entity.User) (entity.User, error)
 	FindByUsername(username string) (entity.User, error)
+	UpdateUser(username string, user entity.User) (entity.User, error)
 }
 
 type userRepo struct {
@@ -30,5 +31,14 @@ func (ur *userRepo) InsertUser(user entity.User) (entity.User, error) {
 func (ur *userRepo) FindByUsername(username string) (entity.User, error) {
 	user := entity.User{}
 	res := ur.connection.Where("username = ?", username).Take(&user)
+	return user, res.Error
+}
+
+func (ur *userRepo) UpdateUser(username string, user entity.User) (entity.User, error) {
+	currentUser, _ := ur.FindByUsername(username)
+	currentUser.FirstName = user.FirstName
+	currentUser.LastName = user.LastName
+	currentUser.Username = user.Username
+	res := ur.connection.Save(&currentUser)
 	return user, res.Error
 }
