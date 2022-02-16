@@ -1,30 +1,40 @@
 package config
 
 import (
+	"fmt"
+	"os"
+
+	"github.com/joho/godotenv"
+	"github.com/ssukanmi/webservice/entity"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
-const DB_USERNAME = "root"
-const DB_PASSWORD = "p@ssword"
-const DB_NAME = "webservice"
-const DB_HOST = "localhost"
-const DB_PORT = "3306"
+func SetupDatabaseConnection() *gorm.DB {
+	err := godotenv.Load()
+	if err != nil {
+		panic("Failed to load env file")
+	}
 
-var Db *gorm.DB
+	dbUser := os.Getenv("DB_USER")
+	dbPass := os.Getenv("DB_PASS")
+	dbHost := os.Getenv("DB_HOST")
+	dbName := os.Getenv("DB_NAME")
+	dbPort := os.Getenv("DB_PORT")
 
-func InitDb() *gorm.DB {
-	Db = connectDB()
-	return Db
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", dbUser, dbPass, dbHost, dbPort, dbName)
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		panic("Failed to create a connection to database")
+	}
+	db.AutoMigrate(&entity.User{})
+	return db
 }
 
-func connectDB() *gorm.DB {
-	var err error
-	dsn := DB_USERNAME + ":" + DB_PASSWORD + "@tcp" + "(" + DB_HOST + ":" + DB_PORT + ")/" + DB_NAME + "?" + "parseTime=true&loc=Local"
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-
+func CloseDatabaseConnection(db *gorm.DB) {
+	dbSQL, err := db.DB()
 	if err != nil {
-		panic("Error connecting to database")
+		panic("Failed to close connection from database")
 	}
-	return db
+	dbSQL.Close()
 }

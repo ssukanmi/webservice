@@ -1,7 +1,9 @@
 {
     "cSpell.words": [
+        "godotenv",
         "gorm",
         "healthz",
+        "smapping",
         "stretchr",
         "webservicedb"
     ]
