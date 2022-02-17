@@ -40,6 +40,7 @@ func (ur *userRepo) UpdateUser(username string, user entity.User) (entity.User, 
 	currentUser.FirstName = user.FirstName
 	currentUser.LastName = user.LastName
 	currentUser.Password = service.HashPassword(user.Password)
+	currentUser.Username = user.Username
 	res := ur.connection.Save(&currentUser)
 	return currentUser, res.Error
 }

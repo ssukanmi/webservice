@@ -84,6 +84,14 @@ func (uc *userController) UpdateUser(c *gin.Context) {
 		})
 		return
 	}
+
+	if !(service.ValidateEmail(userUpdateDTO.Username)) {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"message": "Invalid email used for username",
+		})
+		return
+	}
+
 	user := entity.User{}
 	err = smapping.FillStruct(&user, smapping.MapFields(&userUpdateDTO))
 	if err != nil {
