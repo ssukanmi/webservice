@@ -8,7 +8,6 @@ import (
 	"github.com/ssukanmi/webservice/dto"
 	"github.com/ssukanmi/webservice/entity"
 	"github.com/ssukanmi/webservice/repo"
-	"github.com/ssukanmi/webservice/service"
 )
 
 type UserController interface {
@@ -37,9 +36,10 @@ func (uc *userController) CreateUser(c *gin.Context) {
 		return
 	}
 
-	if !(service.ValidateEmail(userCreateDTO.Username)) {
+	err = userCreateDTO.Validate()
+	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			"message": "Invalid email used for username",
+			"message": "Unable to validate json value" + err.Error(),
 		})
 		return
 	}
@@ -77,17 +77,11 @@ func (uc *userController) GetUser(c *gin.Context) {
 
 func (uc *userController) UpdateUser(c *gin.Context) {
 	userUpdateDTO := dto.UserUpdateDTO{}
-	err := c.ShouldBindJSON(&userUpdateDTO)
+	err := c.BindJSON(&userUpdateDTO)
+	// err := c.ShouldBindJSON(&userUpdateDTO)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"message": "Unable to bind json body" + err.Error(),
-		})
-		return
-	}
-
-	if !(service.ValidateEmail(userUpdateDTO.Username)) {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-			"message": "Invalid email used for username",
 		})
 		return
 	}
@@ -110,5 +104,5 @@ func (uc *userController) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusNoContent, user)
+	c.JSON(http.StatusOK, user)
 }
