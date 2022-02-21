@@ -1,6 +1,9 @@
 package main
 
 import (
+	"io"
+	"os"
+
 	"github.com/gin-gonic/gin"
 	"github.com/ssukanmi/webservice/config"
 	"github.com/ssukanmi/webservice/controller"
@@ -36,6 +39,8 @@ func setupRouter() *gin.Engine {
 
 func main() {
 	defer config.CloseDatabaseConnection(db)
+	f, _ := os.Create("gin.log")
+	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
 	r := setupRouter()
 	r.Run(":8080")
 }

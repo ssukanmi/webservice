@@ -3,7 +3,7 @@ package entity
 import (
 	"time"
 
-	uuid "github.com/satori/go.uuid"
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -18,6 +18,6 @@ type User struct {
 }
 
 func (user *User) BeforeCreate(tx *gorm.DB) error {
-	tx.Statement.SetColumn("id", uuid.NewV4())
+	tx.Statement.SetColumn("id", uuid.New())
 	return nil
 }
