@@ -11,3 +11,13 @@
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8080
+[GIN] 2022/02/21 - 12:31:12 | 200 |    5.493875ms |             ::1 | PUT      "/v1/user/self"
+[GIN] 2022/02/21 - 12:31:12 | 200 |       4.712ms |             ::1 | PUT      "/v1/user/self"
+[GIN] 2022/02/21 - 12:31:17 | 200 |       4.309ms |             ::1 | PUT      "/v1/user/self"
+[GIN] 2022/02/21 - 12:31:19 | 200 |    4.636625ms |             ::1 | PUT      "/v1/user/self"
+[GIN] 2022/02/21 - 12:31:23 | 200 |    4.361833ms |             ::1 | PUT      "/v1/user/self"
+[GIN] 2022/02/21 - 12:31:24 | 200 |    5.110875ms |             ::1 | PUT      "/v1/user/self"
+[GIN] 2022/02/21 - 12:31:24 | 200 |    6.039333ms |             ::1 | PUT      "/v1/user/self"
+[GIN] 2022/02/21 - 12:31:32 | 200 |     7.38825ms |             ::1 | PUT      "/v1/user/self"
+[GIN] 2022/02/21 - 12:31:32 | 200 |    4.689458ms |             ::1 | PUT      "/v1/user/self"
+[GIN] 2022/02/21 - 12:31:33 | 200 |     4.93375ms |             ::1 | PUT      "/v1/user/self"

@@ -37,12 +37,12 @@ func (ur *userRepo) FindByUsername(username string) (entity.User, error) {
 func (ur *userRepo) UpdateUser(username string, user entity.User) (entity.User, error) {
 	currentUser, _ := ur.FindByUsername(username)
 	ur.connection.Model(&entity.User{}).Where("username = ?", username)
-	// if user.FirstName != "" {
-	currentUser.FirstName = user.FirstName
-	// }
-	// if user.LastName != "" {
-	currentUser.LastName = user.LastName
-	// }
+	if user.FirstName != "" {
+		currentUser.FirstName = user.FirstName
+	}
+	if user.LastName != "" {
+		currentUser.LastName = user.LastName
+	}
 	if user.Password != "" {
 		currentUser.Password = service.HashPassword(user.Password)
 	}
