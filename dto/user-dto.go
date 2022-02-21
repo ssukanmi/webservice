@@ -10,9 +10,9 @@ type UserCreateDTO struct {
 }
 
 type UserUpdateDTO struct {
-	FirstName string `json:"first_name,omitempty"`
-	LastName  string `json:"last_name,omitempty"`
-	Password  string `json:"password,omitempty"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Password  string `json:"password"`
 }
 
 func (u UserCreateDTO) Validate() error {

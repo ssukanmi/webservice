@@ -105,5 +105,5 @@ func (uc *userController) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusNoContent, user)
 }
