@@ -27,12 +27,6 @@ jobs:
       - name: Test web app
         run: go test -v ./...
 
-      # fix backwards incompatibilities in template
-      - name: Fix Template
-        uses: hashicorp/packer-github-actions@master
-        with:
-          command: fix
-
       # validate templates
       - name: Validate Template
         uses: hashicorp/packer-github-actions@master
