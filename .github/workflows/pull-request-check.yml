@@ -40,7 +40,7 @@ jobs:
           command: validate
           target: .
 
-      # build artifact
+      # build artifacts
       - name: Build Artifact
         uses: hashicorp/packer-github-actions@master
         env:
