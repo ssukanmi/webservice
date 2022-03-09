@@ -1,13 +1,12 @@
 [Unit]
-Description = Go webapp server
+Description=Go-webapp-server
 
 [Service]
-User=root
-Group=root
 Type=simple
 RestartSec=5s
 Restart=always
 ExecStart=/home/ec2-user/webservice/webapp
+WorkingDirectory=/home/ec2-user/webservice
 
 [Install]
 WantedBy=multi-user.target

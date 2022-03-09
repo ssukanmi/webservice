@@ -93,9 +93,9 @@ build {
       "sleep 5",
       "cd ~/webservice",
       "go build -o webapp .",
+      "sudo mv gowebapp.service /lib/systemd/system/gowebapp.service",
+      "sudo systemctl start gowebapp.service",
+      "sudo systemctl enable gowebapp.service",
     ]
-    // "sudo mv gowebapp.service /lib/systemd/system/gowebapp.service",
-    // "sudo systemctl start gowebapp.service",
-    // "sudo systemctl enable gowebapp.service",
   }
 }
