@@ -39,8 +39,9 @@ func setupRouter() *gin.Engine {
 
 func main() {
 	defer config.CloseDatabaseConnection(db)
-	f, _ := os.Create("gin.log")
-	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
+	gin.DisableConsoleColor()
+	ginLog, _ := os.Create("gin.log")
+	gin.DefaultWriter = io.MultiWriter(ginLog)
 	r := setupRouter()
 	r.Run(":8080")
 }
