@@ -1,0 +1,6 @@
+aws_region      = "us-east-1"
+aws_access_key  = ""
+aws_secret_key  = ""
+subnet_id       = "subnet-0f960342a73f60dc2"
+source_ami      = "ami-033b95fb8079dc481"
+demo_account_id = "235377706541"
