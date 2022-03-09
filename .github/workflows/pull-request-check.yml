@@ -32,10 +32,9 @@ jobs:
         uses: hashicorp/packer-github-actions@master
         with:
           command: validate
-          arguments: -syntax-only
           target: .
 
-      # Configure Binaries
+      # configure binaries
       - name: Configure Binaries
         uses: hashicorp/packer-github-actions@master
         with:
@@ -46,7 +45,6 @@ jobs:
         uses: hashicorp/packer-github-actions@master
         with:
           command: build
-          arguments: "-color=false -on-error=abort"
           target: .
         env:
           PACKER_LOG: 1
