@@ -35,6 +35,12 @@ jobs:
           arguments: -syntax-only
           target: .
 
+      # Configure Binaries
+      - name: Configure Binaries
+        uses: hashicorp/packer-github-actions@master
+        with:
+          command: init
+
       # build artifact
       - name: Build Artifact
         uses: hashicorp/packer-github-actions@master
