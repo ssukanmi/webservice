@@ -58,9 +58,6 @@ build {
     destination = "~/webservice"
   }
   provisioner "shell" {
-    environment_vars = [
-      "FOO=foo",
-    ]
     inline = [
       "sleep 20",
       "sudo yum update -y",
@@ -87,8 +84,8 @@ build {
       "cd ~/webservice",
       "go build -o webapp .",
       "sudo mv gowebapp.service /lib/systemd/system/gowebapp.service",
-      "sudo systemctl start gowebapp.service",
-      "sudo systemctl enable gowebapp.service",
+      "sudo systemctl start gowebapp",
+      "sudo systemctl enable gowebapp",
     ]
   }
 }

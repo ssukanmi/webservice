@@ -43,5 +43,5 @@ func main() {
 	ginLog, _ := os.Create("gin.log")
 	gin.DefaultWriter = io.MultiWriter(ginLog)
 	r := setupRouter()
-	r.Run(":8080")
+	r.Run(":80")
 }

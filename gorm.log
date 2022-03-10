@@ -1,9 +1,9 @@
 
-2022/03/10 01:40:48 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/config/database.go:41
-[error] failed to initialize database, got error dial tcp 127.0.0.1:3306: connect: connection refused
+2022/03/10 01:53:03 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/config/database.go:41
+[error] failed to initialize database, got error dial tcp [::1]:3306: connect: connection refused
 
-2022/03/10 01:40:48 /Users/olasunkanmi/go/pkg/mod/gorm.io/driver/mysql@v1.2.3/migrator.go:237 dial tcp 127.0.0.1:3306: connect: connection refused
-[0.601ms] [rows:-] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE '%' ORDER BY SCHEMA_NAME='' DESC limit 1
+2022/03/10 01:53:03 /Users/olasunkanmi/go/pkg/mod/gorm.io/driver/mysql@v1.2.3/migrator.go:237 dial tcp [::1]:3306: connect: connection refused
+[0.578ms] [rows:-] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE '%' ORDER BY SCHEMA_NAME='' DESC limit 1
 
-2022/03/10 01:40:48 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/config/database.go:47 dial tcp 127.0.0.1:3306: connect: connection refused
-[0.589ms] [rows:0] CREATE TABLE `users` (`id` varchar(191),`first_name` varchar(255),`last_name` varchar(255),`password` longtext NOT NULL,`username` varchar(255) UNIQUE,`account_created` datetime(3) NULL,`account_updated` datetime(3) NULL,PRIMARY KEY (`id`))
+2022/03/10 01:53:03 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/config/database.go:47 dial tcp [::1]:3306: connect: connection refused
+[0.465ms] [rows:0] CREATE TABLE `users` (`id` varchar(191),`first_name` varchar(255),`last_name` varchar(255),`password` longtext NOT NULL,`username` varchar(255) UNIQUE,`account_created` datetime(3) NULL,`account_updated` datetime(3) NULL,PRIMARY KEY (`id`))
