@@ -49,8 +49,6 @@ build {
   ]
   provisioner "shell" {
     inline = [
-      "echo creating required directories",
-      "sleep 5",
       "sudo mkdir -p ~/webservice",
       "sudo chown ${var.ssh_username}:${var.ssh_username} ~/webservice",
     ]
@@ -64,14 +62,12 @@ build {
       "FOO=foo",
     ]
     inline = [
-      "echo updating packages",
       "sleep 20",
       "sudo yum update -y",
     ]
   }
   provisioner "shell" {
     inline = [
-      "echo installing mysql",
       "sleep 5",
       "sudo yum install mariadb-server -y",
       "sudo systemctl start mariadb",
@@ -82,15 +78,12 @@ build {
   }
   provisioner "shell" {
     inline = [
-      "echo installing golang",
       "sleep 5",
       "sudo yum install golang -y",
     ]
   }
   provisioner "shell" {
     inline = [
-      "echo running the web app",
-      "sleep 5",
       "cd ~/webservice",
       "go build -o webapp .",
       "sudo mv gowebapp.service /lib/systemd/system/gowebapp.service",
