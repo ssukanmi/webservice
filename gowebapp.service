@@ -3,8 +3,11 @@ Description=Go-webapp-server
 
 [Service]
 Type=simple
+User=root
+Group=root
 RestartSec=5s
 Restart=always
+Environment=GIN_MODE=release
 ExecStart=/home/ec2-user/webservice/webapp
 WorkingDirectory=/home/ec2-user/webservice
 
