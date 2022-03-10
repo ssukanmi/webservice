@@ -40,7 +40,7 @@ source "amazon-ebs" "aws-linux" {
     volume_type           = "gp2"
     delete_on_termination = true
   }
-}
+
 
 build {
   name = "web-app-build"
