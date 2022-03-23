@@ -75,14 +75,18 @@ func (ur *userRepo) UpdateUserProfilePic(username, filename string) (entity.User
 	if err != nil {
 		return userImage, err
 	}
-	if err := ur.connection.Where("user_id = ?", user.ID).UpdateColumn("url", s3BucketName+"/"+username+"/"+filename).Take(&userImage).Error; err == gorm.ErrRecordNotFound {
-		userImage.UserID = user.ID
-		userImage.FileName = filename
-		userImage.URL = s3BucketName + "/" + username + "/" + filename
-		ur.connection.Create(&userImage)
-		return userImage, nil
+	res := ur.connection.Model(&entity.UserImage{}).Where("user_id = ?", user.ID).UpdateColumn("url", s3BucketName+"/"+username+"/"+filename).Take(&userImage)
+	if res.Error != nil {
+		if res.Error == gorm.ErrRecordNotFound {
+			userImage.UserID = user.ID
+			userImage.FileName = filename
+			userImage.URL = s3BucketName + "/" + username + "/" + filename
+			res = ur.connection.Create(&userImage)
+			return userImage, res.Error
+		}
+		return userImage, res.Error
 	}
-	return userImage, nil
+	return userImage, res.Error
 }
 
 func (ur *userRepo) GetUserProfilePic(username string) (entity.UserImage, error) {

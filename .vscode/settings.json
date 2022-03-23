@@ -5,6 +5,7 @@
         "gorm",
         "hashicorp",
         "healthz",
+        "joho",
         "pkrvars",
         "smapping",
         "ssukanmi",

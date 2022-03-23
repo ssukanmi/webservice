@@ -14,15 +14,10 @@
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8080
-[GIN] 2022/03/23 - 11:17:35 | 200 |      3.3905ms |             ::1 | GET      "/v1/user/self"
-[GIN] 2022/03/23 - 11:17:39 | 201 |    9.507334ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:17:39 | 201 |    3.693875ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:17:41 | 200 |    5.015542ms |             ::1 | GET      "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:17:43 | 204 |    6.286459ms |             ::1 | DELETE   "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:18:08 | 201 |       4.402ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:18:08 | 201 |    6.539375ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:18:25 | 201 |    4.384917ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:18:26 | 201 |    5.135125ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:18:27 | 201 |    3.724292ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:18:28 | 201 |    3.305041ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:18:30 | 201 |    6.570958ms |             ::1 | POST     "/v1/user/self/pic"
+[GIN] 2022/03/23 - 11:31:12 | 404 |    7.442125ms |             ::1 | GET      "/v1/user/self/pic"
+[GIN] 2022/03/23 - 11:31:16 | 404 |    3.298917ms |             ::1 | GET      "/v1/user/self/pic"
+[GIN] 2022/03/23 - 11:31:17 | 404 |    3.624334ms |             ::1 | GET      "/v1/user/self/pic"
+[GIN] 2022/03/23 - 11:31:21 | 201 |    8.518459ms |             ::1 | POST     "/v1/user/self/pic"
+[GIN] 2022/03/23 - 11:31:24 | 200 |     5.23925ms |             ::1 | GET      "/v1/user/self/pic"
+[GIN] 2022/03/23 - 11:31:27 | 204 |    7.778916ms |             ::1 | DELETE   "/v1/user/self/pic"
+[GIN] 2022/03/23 - 11:31:29 | 404 |    5.751666ms |             ::1 | GET      "/v1/user/self/pic"
