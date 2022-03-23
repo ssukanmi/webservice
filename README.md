@@ -25,11 +25,11 @@ a web api application
 2) Build image
 ```
 packer build \
-    -ver 'aws_access_key=' \
-    -ver 'aws_secret_key=' \
-    -ver 'aws_region=us-east-1' \
-    -ver 'subnet_id=subnet-0f960342a73f60dc2' \
-    -ver 'source_ami=ami-033b95fb8079dc481' \
+    -var 'aws_access_key=' \
+    -var 'aws_secret_key=' \
+    -var 'aws_region=us-east-1' \
+    -var 'subnet_id=subnet-0f960342a73f60dc2' \
+    -var 'source_ami=ami-033b95fb8079dc481' \
     ami.pkr.hcl
 ```
 #### OR

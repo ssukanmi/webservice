@@ -16,9 +16,8 @@ import (
 func SetupDatabaseConnection() *gorm.DB {
 	err := godotenv.Load()
 	if err != nil {
-		panic("Failed to load env file")
+		fmt.Println("Failed to load env file")
 	}
-
 	dbUser := os.Getenv("DB_USER")
 	dbPass := os.Getenv("DB_PASS")
 	dbHost := os.Getenv("DB_HOST")
@@ -44,7 +43,7 @@ func SetupDatabaseConnection() *gorm.DB {
 	if err != nil {
 		fmt.Println("Failed to create a connection to database")
 	}
-	db.AutoMigrate(&entity.User{})
+	db.AutoMigrate(&entity.User{}, &entity.UserImage{})
 	return db
 }
 

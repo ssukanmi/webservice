@@ -47,45 +47,75 @@ build {
   sources = [
     "source.amazon-ebs.aws-linux"
   ]
+  provisioner "shell-local" {
+    inline = ["GOOS=linux GOARCH=amd64 go build -o linux-bin/webapp ."]
+  }
   provisioner "shell" {
     inline = [
       "sudo mkdir -p ~/webservice",
       "sudo chown ${var.ssh_username}:${var.ssh_username} ~/webservice",
     ]
   }
+  // provisioner "file" {
+  //   source      = "./"
+  //   destination = "~/webservice"
+  // }
   provisioner "file" {
-    source      = "./"
-    destination = "~/webservice"
+    source      = "linux-bin/webapp"
+    destination = "~/webservice/webapp"
+  }
+  provisioner "file" {
+    source      = ".env"
+    destination = "~/webservice/.env"
+  }
+  provisioner "file" {
+    source      = "gowebapp.service"
+    destination = "~/webservice/gowebapp.service"
   }
   provisioner "shell" {
     inline = [
-      "sleep 20",
+      "sleep 25",
       "sudo yum update -y",
     ]
   }
   provisioner "shell" {
     inline = [
       "sleep 5",
-      "sudo yum install mariadb-server -y",
-      "sudo systemctl start mariadb",
-      "sudo systemctl enable mariadb",
-      "echo 'create SCHEMA webservicedb;' | sudo mysql",
-      "mysqladmin -u root password p@ssword",
-    ]
-  }
-  provisioner "shell" {
-    inline = [
-      "sleep 5",
-      "sudo yum install golang -y",
+      "sudo yum install mysql -y",
     ]
   }
   provisioner "shell" {
     inline = [
       "cd ~/webservice",
-      "go build -o webapp .",
       "sudo mv gowebapp.service /lib/systemd/system/gowebapp.service",
       "sudo systemctl start gowebapp",
       "sudo systemctl enable gowebapp",
+      "sudo systemctl status gowebapp",
     ]
   }
+  // provisioner "shell" {
+  //   inline = [
+  //     "sleep 5",
+  //     "sudo yum install mariadb-server -y",
+  //     "sudo systemctl start mariadb",
+  //     "sudo systemctl enable mariadb",
+  //     "echo 'create SCHEMA webservicedb;' | sudo mysql",
+  //     "mysqladmin -u root password p@ssword",
+  //   ]
+  // }
+  // provisioner "shell" {
+  //   inline = [
+  //     "sleep 5",
+  //     "sudo yum install golang -y",
+  //   ]
+  // }
+  // provisioner "shell" {
+  //   inline = [
+  //     "cd ~/webservice",
+  //     "go build -o webapp .",
+  //     "sudo mv gowebapp.service /lib/systemd/system/gowebapp.service",
+  //     "sudo systemctl start gowebapp",
+  //     "sudo systemctl enable gowebapp",
+  //   ]
+  // }
 }

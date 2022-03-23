@@ -32,6 +32,9 @@ func setupRouter() *gin.Engine {
 	{
 		authRoutes.GET("", userController.GetUser)
 		authRoutes.PUT("", userController.UpdateUser)
+		authRoutes.POST("/pic", userController.AddOrUpdateProfilePic)
+		authRoutes.GET("/pic", userController.GetProfilePic)
+		authRoutes.DELETE("/pic", userController.DeleteProfilePic)
 	}
 
 	return r
@@ -43,5 +46,5 @@ func main() {
 	ginLog, _ := os.Create("gin.log")
 	gin.DefaultWriter = io.MultiWriter(ginLog)
 	r := setupRouter()
-	r.Run(":80")
+	r.Run(":8080")
 }
