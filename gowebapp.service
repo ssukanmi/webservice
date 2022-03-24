@@ -8,6 +8,7 @@ Group=root
 RestartSec=5s
 Restart=always
 Environment=GIN_MODE=release
+Environment=AWS_REGION=us-east-1
 ExecStart=/home/ec2-user/webservice/webapp
 WorkingDirectory=/home/ec2-user/webservice
 

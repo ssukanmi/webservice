@@ -1,9 +1,6 @@
 
-2022/03/10 01:53:03 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/config/database.go:41
-[error] failed to initialize database, got error dial tcp [::1]:3306: connect: connection refused
+2022/03/24 03:52:22 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/repo/user-repo.go:96 record not found
+[0.790ms] [rows:0] SELECT * FROM `user_images` WHERE user_id = '1fe738ac-b09a-4e82-a077-a30f8748663e' LIMIT 1
 
-2022/03/10 01:53:03 /Users/olasunkanmi/go/pkg/mod/gorm.io/driver/mysql@v1.2.3/migrator.go:237 dial tcp [::1]:3306: connect: connection refused
-[0.578ms] [rows:-] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE '%' ORDER BY SCHEMA_NAME='' DESC limit 1
-
-2022/03/10 01:53:03 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/config/database.go:47 dial tcp [::1]:3306: connect: connection refused
-[0.465ms] [rows:0] CREATE TABLE `users` (`id` varchar(191),`first_name` varchar(255),`last_name` varchar(255),`password` longtext NOT NULL,`username` varchar(255) UNIQUE,`account_created` datetime(3) NULL,`account_updated` datetime(3) NULL,PRIMARY KEY (`id`))
+2022/03/24 03:53:19 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/repo/user-repo.go:96 record not found
+[0.735ms] [rows:0] SELECT * FROM `user_images` WHERE user_id = '1fe738ac-b09a-4e82-a077-a30f8748663e' LIMIT 1

@@ -8,6 +8,14 @@
 [GIN-debug] POST   /v1/user                  --> github.com/ssukanmi/webservice/controller.UserController.CreateUser-fm (3 handlers)
 [GIN-debug] GET    /v1/user/self             --> github.com/ssukanmi/webservice/controller.UserController.GetUser-fm (4 handlers)
 [GIN-debug] PUT    /v1/user/self             --> github.com/ssukanmi/webservice/controller.UserController.UpdateUser-fm (4 handlers)
+[GIN-debug] POST   /v1/user/self/pic         --> github.com/ssukanmi/webservice/controller.UserController.AddOrUpdateProfilePic-fm (4 handlers)
+[GIN-debug] GET    /v1/user/self/pic         --> github.com/ssukanmi/webservice/controller.UserController.GetProfilePic-fm (4 handlers)
+[GIN-debug] DELETE /v1/user/self/pic         --> github.com/ssukanmi/webservice/controller.UserController.DeleteProfilePic-fm (4 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
-[GIN-debug] Listening and serving HTTP on :80
+[GIN-debug] Listening and serving HTTP on :8080
+[GIN] 2022/03/24 - 03:52:22 | 201 |  320.521125ms |             ::1 | POST     "/v1/user/self/pic"
+[GIN] 2022/03/24 - 03:52:50 | 204 |   190.55025ms |             ::1 | DELETE   "/v1/user/self/pic"
+[GIN] 2022/03/24 - 03:53:19 | 201 |  243.626167ms |             ::1 | POST     "/v1/user/self/pic"
+[GIN] 2022/03/24 - 03:53:35 | 201 |   516.66475ms |             ::1 | POST     "/v1/user/self/pic"
+[GIN] 2022/03/24 - 03:53:44 | 204 |  152.910208ms |             ::1 | DELETE   "/v1/user/self/pic"
