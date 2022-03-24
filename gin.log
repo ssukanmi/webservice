@@ -14,10 +14,9 @@
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8080
-[GIN] 2022/03/23 - 11:31:12 | 404 |    7.442125ms |             ::1 | GET      "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:31:16 | 404 |    3.298917ms |             ::1 | GET      "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:31:17 | 404 |    3.624334ms |             ::1 | GET      "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:31:21 | 201 |    8.518459ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:31:24 | 200 |     5.23925ms |             ::1 | GET      "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:31:27 | 204 |    7.778916ms |             ::1 | DELETE   "/v1/user/self/pic"
-[GIN] 2022/03/23 - 11:31:29 | 404 |    5.751666ms |             ::1 | GET      "/v1/user/self/pic"
+[GIN] 2022/03/24 - 00:49:09 | 201 |    8.681791ms |             ::1 | POST     "/v1/user/self/pic"
+[GIN] 2022/03/24 - 00:49:15 | 204 |  403.808625ms |             ::1 | DELETE   "/v1/user/self/pic"
+[GIN] 2022/03/24 - 00:49:53 | 201 |    7.847584ms |             ::1 | POST     "/v1/user/self/pic"
+[GIN] 2022/03/24 - 00:51:23 | 201 |  528.843333ms |             ::1 | POST     "/v1/user/self/pic"
+[GIN] 2022/03/24 - 00:51:41 | 201 |  1.320964959s |             ::1 | POST     "/v1/user/self/pic"
+[GIN] 2022/03/24 - 00:52:06 | 204 |  271.929916ms |             ::1 | DELETE   "/v1/user/self/pic"

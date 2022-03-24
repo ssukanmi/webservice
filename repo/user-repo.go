@@ -2,8 +2,13 @@ package repo
 
 import (
 	"fmt"
+	"mime/multipart"
 	"os"
 
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 	"github.com/joho/godotenv"
 	"github.com/ssukanmi/webservice/entity"
 	"github.com/ssukanmi/webservice/service"
@@ -19,7 +24,7 @@ type UserRepository interface {
 	FindByUsername(username string) (entity.User, error)
 	UpdateUser(username string, user entity.User) (entity.User, error)
 	GetUserProfilePic(username string) (entity.UserImage, error)
-	UpdateUserProfilePic(username, filename string) (entity.UserImage, error)
+	UpdateUserProfilePic(username string, file *multipart.FileHeader) (entity.UserImage, error)
 	DeleteUserProfilePic(username string) error
 }
 
@@ -69,22 +74,40 @@ func (ur *userRepo) UpdateUser(username string, user entity.User) (entity.User, 
 	return currentUser, res.Error
 }
 
-func (ur *userRepo) UpdateUserProfilePic(username, filename string) (entity.UserImage, error) {
+func (ur *userRepo) UpdateUserProfilePic(username string, file *multipart.FileHeader) (entity.UserImage, error) {
 	user, err := ur.FindByUsername(username)
 	userImage := entity.UserImage{}
 	if err != nil {
 		return userImage, err
 	}
-	res := ur.connection.Model(&entity.UserImage{}).Where("user_id = ?", user.ID).UpdateColumn("url", s3BucketName+"/"+username+"/"+filename).Take(&userImage)
+	res := ur.connection.Model(&entity.UserImage{}).Where("user_id = ?", user.ID).UpdateColumn("url", s3BucketName+"/"+username+"/"+file.Filename).Take(&userImage)
 	if res.Error != nil {
 		if res.Error == gorm.ErrRecordNotFound {
 			userImage.UserID = user.ID
-			userImage.FileName = filename
-			userImage.URL = s3BucketName + "/" + username + "/" + filename
+			userImage.FileName = file.Filename
+			userImage.URL = s3BucketName + "/" + username + "/" + file.Filename
 			res = ur.connection.Create(&userImage)
 			return userImage, res.Error
 		}
 		return userImage, res.Error
+	}
+	sess, err := session.NewSession()
+	if err != nil {
+		return userImage, err
+	}
+	uploader := s3manager.NewUploader(sess)
+	f, err := file.Open()
+	if err != nil {
+		fmt.Println("Unable to open file -- " + err.Error())
+	}
+	defer f.Close()
+	_, err = uploader.Upload(&s3manager.UploadInput{
+		Bucket: aws.String(s3BucketName),
+		Key:    aws.String(username + "/" + file.Filename),
+		Body:   f,
+	})
+	if err != nil {
+		return userImage, err
 	}
 	return userImage, res.Error
 }
@@ -105,5 +128,24 @@ func (ur *userRepo) DeleteUserProfilePic(username string) error {
 		return err
 	}
 	res := ur.connection.Where("user_id = ?", user.ID).Delete(&entity.UserImage{})
+	sess, err := session.NewSession()
+	if err != nil {
+		return err
+	}
+	svc := s3.New(sess)
+	_, err = svc.DeleteObject(&s3.DeleteObjectInput{
+		Bucket: aws.String(s3BucketName),
+		Key:    aws.String(username),
+	})
+	if err != nil {
+		return err
+	}
+	err = svc.WaitUntilObjectNotExists(&s3.HeadObjectInput{
+		Bucket: aws.String(s3BucketName),
+		Key:    aws.String(username),
+	})
+	if err != nil {
+		return err
+	}
 	return res.Error
 }

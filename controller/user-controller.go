@@ -150,7 +150,7 @@ func (uc *userController) AddOrUpdateProfilePic(c *gin.Context) {
 		})
 		return
 	}
-	userImage, err = uc.userRepo.UpdateUserProfilePic(username, file.Filename)
+	userImage, err = uc.userRepo.UpdateUserProfilePic(username, file)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"message": "Unable to add/update user profile picture -- " + err.Error(),
@@ -181,6 +181,7 @@ func (uc *userController) GetProfilePic(c *gin.Context) {
 
 func (uc *userController) DeleteProfilePic(c *gin.Context) {
 	username, _, _ := c.Request.BasicAuth()
+	os.RemoveAll(s3BucketName + "/" + username)
 	err := uc.userRepo.DeleteUserProfilePic(username)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{

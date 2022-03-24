@@ -15,6 +15,7 @@ require (
 )
 
 require (
+	github.com/aws/aws-sdk-go v1.43.24
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect
@@ -34,3 +35,5 @@ require (
 	gopkg.in/yaml.v2 v2.2.8 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c // indirect
 )
+
+require github.com/jmespath/go-jmespath v0.4.0 // indirect
