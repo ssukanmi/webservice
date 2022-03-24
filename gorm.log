@@ -1,15 +1,6 @@
 
-2022/03/24 02:53:50 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/repo/user-repo.go:151 record not found
-[0.539ms] [rows:0] SELECT * FROM `user_images` WHERE user_id = '1fe738ac-b09a-4e82-a077-a30f8748663e' LIMIT 1
+2022/03/24 03:52:22 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/repo/user-repo.go:96 record not found
+[0.790ms] [rows:0] SELECT * FROM `user_images` WHERE user_id = '1fe738ac-b09a-4e82-a077-a30f8748663e' LIMIT 1
 
-2022/03/24 02:53:56 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/repo/user-repo.go:151 record not found
-[0.285ms] [rows:0] SELECT * FROM `user_images` WHERE user_id = '1fe738ac-b09a-4e82-a077-a30f8748663e' LIMIT 1
-
-2022/03/24 02:54:02 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/repo/user-repo.go:96 record not found
-[0.318ms] [rows:0] SELECT * FROM `user_images` WHERE user_id = '1fe738ac-b09a-4e82-a077-a30f8748663e' LIMIT 1
-
-2022/03/24 02:54:28 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/repo/user-repo.go:96 record not found
-[0.301ms] [rows:0] SELECT * FROM `user_images` WHERE user_id = '1fe738ac-b09a-4e82-a077-a30f8748663e' LIMIT 1
-
-2022/03/24 02:54:41 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/repo/user-repo.go:96 record not found
-[0.307ms] [rows:0] SELECT * FROM `user_images` WHERE user_id = '1fe738ac-b09a-4e82-a077-a30f8748663e' LIMIT 1
+2022/03/24 03:53:19 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/repo/user-repo.go:96 record not found
+[0.735ms] [rows:0] SELECT * FROM `user_images` WHERE user_id = '1fe738ac-b09a-4e82-a077-a30f8748663e' LIMIT 1

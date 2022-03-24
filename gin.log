@@ -14,18 +14,8 @@
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8080
-[GIN] 2022/03/24 - 02:53:50 | 400 |     6.00975ms |             ::1 | DELETE   "/v1/user/self/pic"
-[GIN] 2022/03/24 - 02:53:56 | 404 |    3.248084ms |             ::1 | GET      "/v1/user/self/pic"
-[GIN] 2022/03/24 - 02:54:02 | 201 |  488.860625ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/24 - 02:54:13 | 200 |    3.174584ms |             ::1 | GET      "/v1/user/self/pic"
-[GIN] 2022/03/24 - 02:54:16 | 204 |  247.200084ms |             ::1 | DELETE   "/v1/user/self/pic"
-[GIN] 2022/03/24 - 02:54:28 | 201 |  353.540083ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/24 - 02:54:31 | 200 |    3.616792ms |             ::1 | GET      "/v1/user/self/pic"
-[GIN] 2022/03/24 - 02:54:33 | 204 |   92.620041ms |             ::1 | DELETE   "/v1/user/self/pic"
-[GIN] 2022/03/24 - 02:54:41 | 201 |  256.465375ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/24 - 02:54:47 | 201 |  312.084625ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/24 - 02:54:58 | 201 |  344.983708ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/24 - 02:55:01 | 201 |  159.346833ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/24 - 02:55:03 | 201 |  155.530916ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/24 - 02:55:18 | 201 |     595.385ms |             ::1 | POST     "/v1/user/self/pic"
-[GIN] 2022/03/24 - 02:55:39 | 204 |  235.815958ms |             ::1 | DELETE   "/v1/user/self/pic"
+[GIN] 2022/03/24 - 03:52:22 | 201 |  320.521125ms |             ::1 | POST     "/v1/user/self/pic"
+[GIN] 2022/03/24 - 03:52:50 | 204 |   190.55025ms |             ::1 | DELETE   "/v1/user/self/pic"
+[GIN] 2022/03/24 - 03:53:19 | 201 |  243.626167ms |             ::1 | POST     "/v1/user/self/pic"
+[GIN] 2022/03/24 - 03:53:35 | 201 |   516.66475ms |             ::1 | POST     "/v1/user/self/pic"
+[GIN] 2022/03/24 - 03:53:44 | 204 |  152.910208ms |             ::1 | DELETE   "/v1/user/self/pic"

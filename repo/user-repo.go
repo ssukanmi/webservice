@@ -120,12 +120,6 @@ func (ur *userRepo) UpdateUserProfilePic(username string, file *multipart.FileHe
 	}); err != nil {
 		return userImage, err
 	}
-	if err := svc.WaitUntilObjectNotExists(&s3.HeadObjectInput{
-		Bucket: aws.String(s3BucketName),
-		Key:    aws.String(userImage.UserID.String() + "/" + userImage.FileName),
-	}); err != nil {
-		return userImage, err
-	}
 	_, err = uploader.Upload(&s3manager.UploadInput{
 		Bucket: aws.String(s3BucketName),
 		Key:    aws.String(user.ID.String() + "/" + file.Filename),
@@ -168,12 +162,6 @@ func (ur *userRepo) DeleteUserProfilePic(username string) error {
 	}
 	svc := s3.New(sess)
 	if _, err := svc.DeleteObjectWithContext(ctx, &s3.DeleteObjectInput{
-		Bucket: aws.String(s3BucketName),
-		Key:    aws.String(userImage.UserID.String() + "/" + userImage.FileName),
-	}); err != nil {
-		return err
-	}
-	if err := svc.WaitUntilObjectNotExists(&s3.HeadObjectInput{
 		Bucket: aws.String(s3BucketName),
 		Key:    aws.String(userImage.UserID.String() + "/" + userImage.FileName),
 	}); err != nil {
