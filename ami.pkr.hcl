@@ -47,9 +47,9 @@ build {
   sources = [
     "source.amazon-ebs.aws-linux"
   ]
-  provisioner "shell-local" {
-    inline = ["GOOS=linux GOARCH=amd64 go build -o linux-bin/webapp ."]
-  }
+  // provisioner "shell-local" {
+  //   inline = ["GOOS=linux GOARCH=amd64 go build -o linux-bin/webapp ."]
+  // }
   provisioner "shell" {
     inline = [
       "sudo mkdir -p ~/webservice",
