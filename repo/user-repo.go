@@ -1,6 +1,7 @@
 package repo
 
 import (
+	"context"
 	"fmt"
 	"mime/multipart"
 	"os"
@@ -17,6 +18,7 @@ import (
 
 var (
 	s3BucketName = os.Getenv("S3_BUCKETNAME")
+	ctx          = context.Background()
 )
 
 type UserRepository interface {
@@ -90,7 +92,8 @@ func (ur *userRepo) UpdateUserProfilePic(username string, file *multipart.FileHe
 		fmt.Println("Unable to open file -- " + err.Error())
 	}
 	defer f.Close()
-	res := ur.connection.Model(&entity.UserImage{}).Where("user_id = ?", user.ID).UpdateColumn("url", s3BucketName+"/"+username+"/"+file.Filename).Take(&userImage)
+	// res := ur.connection.Model(&entity.UserImage{}).Where("user_id = ?", user.ID).UpdateColumns(entity.UserImage{URL: s3BucketName + "/" + username + "/" + file.Filename, FileName: file.Filename}).Take(&userImage)
+	res := ur.connection.Where("user_id = ?", user.ID).Take(&userImage)
 	if res.Error != nil {
 		if res.Error == gorm.ErrRecordNotFound {
 			userImage.UserID = user.ID
@@ -111,18 +114,16 @@ func (ur *userRepo) UpdateUserProfilePic(username string, file *multipart.FileHe
 	}
 
 	svc := s3.New(sess)
-	_, err = svc.DeleteObject(&s3.DeleteObjectInput{
+	if _, err := svc.DeleteObjectWithContext(ctx, &s3.DeleteObjectInput{
 		Bucket: aws.String(s3BucketName),
 		Key:    aws.String(userImage.UserID.String() + "/" + userImage.FileName),
-	})
-	if err != nil {
+	}); err != nil {
 		return userImage, err
 	}
-	err = svc.WaitUntilObjectNotExists(&s3.HeadObjectInput{
+	if err := svc.WaitUntilObjectNotExists(&s3.HeadObjectInput{
 		Bucket: aws.String(s3BucketName),
 		Key:    aws.String(userImage.UserID.String() + "/" + userImage.FileName),
-	})
-	if err != nil {
+	}); err != nil {
 		return userImage, err
 	}
 	_, err = uploader.Upload(&s3manager.UploadInput{
@@ -133,6 +134,10 @@ func (ur *userRepo) UpdateUserProfilePic(username string, file *multipart.FileHe
 	if err != nil {
 		return userImage, err
 	}
+
+	userImage.FileName = file.Filename
+	userImage.URL = s3BucketName + "/" + username + "/" + file.Filename
+	ur.connection.Save(&userImage)
 
 	return userImage, res.Error
 }
@@ -162,18 +167,16 @@ func (ur *userRepo) DeleteUserProfilePic(username string) error {
 		return err
 	}
 	svc := s3.New(sess)
-	_, err = svc.DeleteObject(&s3.DeleteObjectInput{
+	if _, err := svc.DeleteObjectWithContext(ctx, &s3.DeleteObjectInput{
 		Bucket: aws.String(s3BucketName),
 		Key:    aws.String(userImage.UserID.String() + "/" + userImage.FileName),
-	})
-	if err != nil {
+	}); err != nil {
 		return err
 	}
-	err = svc.WaitUntilObjectNotExists(&s3.HeadObjectInput{
+	if err := svc.WaitUntilObjectNotExists(&s3.HeadObjectInput{
 		Bucket: aws.String(s3BucketName),
 		Key:    aws.String(userImage.UserID.String() + "/" + userImage.FileName),
-	})
-	if err != nil {
+	}); err != nil {
 		return err
 	}
 	return res.Error
