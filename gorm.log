@@ -1,6 +1,0 @@
-
-2022/03/24 00:49:09 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/repo/user-repo.go:83 record not found
-[0.494ms] [rows:0] SELECT * FROM `user_images` WHERE user_id = '0f8368ad-1adf-42f3-b13c-d69370d2b134' LIMIT 1
-
-2022/03/24 00:49:53 /Users/olasunkanmi/Documents/spring_22/network_cloud_computing/assignments/webservice/repo/user-repo.go:83 record not found
-[0.568ms] [rows:0] SELECT * FROM `user_images` WHERE user_id = '0f8368ad-1adf-42f3-b13c-d69370d2b134' LIMIT 1
