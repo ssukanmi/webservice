@@ -1,5 +1,11 @@
 name: merge check workflow
 
+env:
+  ARTIFACT_NAME: csye6225-webapp-${{ github.sha }}.zip
+  CODEDEPLOY_APPLICATION_NAME: mywebapp
+  CODEDEPLOY_APPLICATION_DEPLOYMENT_GROUP_NAME: mywebapp
+  AWS_REGION: us-east-1
+
 on:
   push:
     branches: [ main ]
@@ -11,6 +17,23 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      # Build with go
+      - name: Build web app
+        run: go build -o linux-bin/webapp .
+
+      # Build deployment artifact
+      - name: Build Deployment Artifact
+        run: |
+          mkdir codedeploy_artifact
+          zip -r ${{ env.ARTIFACT_NAME }} linux-bin/webapp codedeploy/*.sh appspec.yml
+          mv ${{ env.ARTIFACT_NAME }} codedeploy_artifact/
+
 
       # configure binaries
       - name: Configure Binaries
@@ -24,8 +47,42 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: us-east-1
+          AWS_DEFAULT_REGION: ${{ env.AWS_REGION }}
           PACKER_LOG: 1
         with:
           command: build
           target: .
+
+      # Configure AWS credentrials
+      - name: Configure AWS credentrials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region:  ${{ env.AWS_REGION }}
+
+      # Upload artifact to Codedeploy S3
+      - name: Uploading Artifact to CodeDeploy S3 Bucket
+        run: aws s3 sync ./codedeploy_artifact s3://${{ secrets.S3_CODEDEPLOY_BUCKET }}
+
+
+      - name: CodeDeploy API call
+        run: |
+          output=$(aws deploy create-deployment \
+            --application-name ${{ env.CODEDEPLOY_APPLICATION_NAME }} \
+            --deployment-config-name CodeDeployDefault.AllAtOnce \
+            --deployment-group-name ${{ env.CODEDEPLOY_APPLICATION_DEPLOYMENT_GROUP_NAME }} \
+            --description "CSYE6255 CodeDeploy from Github Actions" \
+            --s3-location bucket=${{ secrets.S3_CODEDEPLOY_BUCKET }},key=${{ env.ARTIFACT_NAME }},bundleType=zip \
+            --region ${{ env.AWS_REGION }} \
+            --file-exists-behavior OVERWRITE \
+            --output json)
+
+            echo $output
+
+            depID=$(echo $output | jq -r '.deploymentId')
+
+            aws deploy wait deployment-successful --deployment-id $depID
+        env:
+          AWS_REGION: ${{ env.AWS_REGION }}
+          AWS_CODEDEPLOY_BUCKET: ${{ secrets.S3_CODEDEPLOY_BUCKET }}

@@ -74,7 +74,7 @@ build {
   }
   provisioner "shell" {
     inline = [
-      "sleep 25",
+      "sleep 30",
       "sudo yum update -y",
     ]
   }
@@ -82,6 +82,18 @@ build {
     inline = [
       "sleep 5",
       "sudo yum install mysql -y",
+    ]
+  }
+  provisioner "shell" {
+    inline = [
+      "sleep 5",
+      "sudo yum install ruby -y",
+      "sudo yum install wget -y",
+      "cd /home/ec2-user",
+      "wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install",
+      "chmod +x ./install",
+      "sudo ./install auto",
+      "sudo service codedeploy-agent status",
     ]
   }
   provisioner "shell" {
