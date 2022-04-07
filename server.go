@@ -23,7 +23,7 @@ func setupRouter() *gin.Engine {
 	r := gin.Default()
 
 	//health route
-	r.GET("/health", healthController.GetHealthStatus)
+	r.GET("/healthz", healthController.GetHealthStatus)
 
 	//user routes
 	r.POST("/v1/user", userController.CreateUser)
