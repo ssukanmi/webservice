@@ -4,8 +4,8 @@ os: linux
 files:
 - source: ./linux-bin/webapp
   destination: /home/ec2-user/webservice
-# - source: ./cloudwatch-config.json
-#   destination: /opt
+- source: ./cloudwatch-config.json
+  destination: /opt
 
 hooks:
   AfterInstall:
