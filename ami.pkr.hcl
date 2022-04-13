@@ -72,6 +72,10 @@ build {
     source      = "gowebapp.service"
     destination = "~/webservice/gowebapp.service"
   }
+  provisioner "file" {
+    source      = "cloudwatch-config.json"
+    destination = "/opt/cloudwatch-config.json"
+  }
   provisioner "shell" {
     inline = [
       "sleep 30",
@@ -94,6 +98,13 @@ build {
       "chmod +x ./install",
       "sudo ./install auto",
       "sudo service codedeploy-agent status",
+    ]
+  }
+  provisioner "shell" {
+    inline = [
+      "sleep 5",
+      "sudo yum install amazon-cloudwatch-agent -y",
+      "sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/cloudwatch-config.json -s",
     ]
   }
   provisioner "shell" {

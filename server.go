@@ -21,6 +21,7 @@ var (
 
 func setupRouter() *gin.Engine {
 	r := gin.Default()
+	r.Use(middleware.Counter())
 
 	//health route
 	r.GET("/healthz", healthController.GetHealthStatus)
@@ -42,6 +43,7 @@ func setupRouter() *gin.Engine {
 
 func main() {
 	defer config.CloseDatabaseConnection(db)
+	defer middleware.CloseClient()
 	gin.DisableConsoleColor()
 	ginLog, _ := os.Create("gin.log")
 	gin.DefaultWriter = io.MultiWriter(ginLog)

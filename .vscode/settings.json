@@ -10,6 +10,7 @@
         "sess",
         "smapping",
         "ssukanmi",
+        "statsd",
         "stretchr",
         "webservicedb"
     ]
