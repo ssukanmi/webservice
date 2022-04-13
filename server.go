@@ -24,7 +24,7 @@ func setupRouter() *gin.Engine {
 	r.Use(middleware.Counter())
 
 	//health route
-	r.GET("/healthz", healthController.GetHealthStatus)
+	r.GET("/health", healthController.GetHealthStatus)
 
 	//user routes
 	r.POST("/v1/user", userController.CreateUser)
