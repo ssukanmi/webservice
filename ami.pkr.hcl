@@ -74,7 +74,7 @@ build {
   }
   provisioner "file" {
     source      = "cloudwatch-config.json"
-    destination = "/opt/cloudwatch-config.json"
+    destination = "~/webservice/cloudwatch-config.json"
   }
   provisioner "shell" {
     inline = [
@@ -82,12 +82,12 @@ build {
       "sudo yum update -y",
     ]
   }
-  provisioner "shell" {
-    inline = [
-      "sleep 5",
-      "sudo yum install mysql -y",
-    ]
-  }
+  // provisioner "shell" {
+  //   inline = [
+  //     "sleep 5",
+  //     "sudo yum install mysql -y",
+  //   ]
+  // }
   provisioner "shell" {
     inline = [
       "sleep 5",
@@ -104,13 +104,13 @@ build {
     inline = [
       "sleep 5",
       "sudo yum install amazon-cloudwatch-agent -y",
+      "sudo mv ~/webservice/cloudwatch-config.json /opt/cloudwatch-config.json",
       "sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/cloudwatch-config.json -s",
     ]
   }
   provisioner "shell" {
     inline = [
-      "cd ~/webservice",
-      "sudo mv gowebapp.service /lib/systemd/system/gowebapp.service",
+      "sudo mv ~/webservice/gowebapp.service /lib/systemd/system/gowebapp.service",
       "sudo systemctl start gowebapp",
       "sudo systemctl enable gowebapp",
       "sudo systemctl status gowebapp",
