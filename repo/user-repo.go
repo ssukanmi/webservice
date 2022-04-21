@@ -48,6 +48,7 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 
 func (ur *userRepo) InsertUser(user entity.User) (entity.User, error) {
 	user.Password = service.HashPassword(user.Password)
+	user.Verified = false
 	res := ur.connection.Save(&user)
 	return user, res.Error
 }

@@ -27,6 +27,7 @@ import (
 var (
 	s3BucketName  = os.Getenv("S3_BUCKETNAME")
 	dynamobdTable = os.Getenv("DYNAMODB_TABLE")
+	accountID     = os.Getenv("ACCOUNT_ID")
 )
 
 type UserController interface {
@@ -143,7 +144,7 @@ func (uc *userController) CreateUser(c *gin.Context) {
 	snsSVC := sns.New(sess)
 	_, err = snsSVC.Publish(&sns.PublishInput{
 		Message:          aws.String(string(messageStr)),
-		TopicArn:         aws.String("arn:aws:sns:us-east-1:175550619217:EmailVerificationTopic"),
+		TopicArn:         aws.String("arn:aws:sns:us-east-1:" + accountID + ":EmailVerificationTopic"),
 		MessageStructure: aws.String("json"),
 	})
 	if err != nil {
