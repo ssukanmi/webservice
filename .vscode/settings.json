@@ -1,15 +1,21 @@
 {
     "cSpell.words": [
+        "BUCKETNAME",
+        "dydb",
+        "dynamobd",
         "godotenv",
         "gonic",
         "gorm",
         "hashicorp",
         "healthz",
         "joho",
+        "olasunkanmi",
+        "olayinka",
         "pkrvars",
         "sess",
         "smapping",
         "ssukanmi",
+        "ssword",
         "statsd",
         "stretchr",
         "webservicedb"

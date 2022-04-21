@@ -1,0 +1,3 @@
+
+2022/04/21 05:52:26 /Users/olasunkanmi/Documents/neu/spring_22/network_cloud_computing/assignments/webservice/repo/user-repo.go:67 record not found
+[1.168ms] [rows:0] SELECT * FROM `users` WHERE username = 'first12@xampe.com' LIMIT 1

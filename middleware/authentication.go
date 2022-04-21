@@ -28,5 +28,8 @@ func authenticateUser(username string, password string, db *gorm.DB) bool {
 	if err != nil {
 		return false
 	}
+	if !user.Verified {
+		return false
+	}
 	return service.CheckPasswordHash(password, user.Password)
 }
