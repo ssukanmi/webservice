@@ -24,12 +24,6 @@ import (
 	"gorm.io/gorm"
 )
 
-// type Item struct {
-// 	Email string
-// 	Token string
-// 	TTL   int64
-// }
-
 var (
 	s3BucketName  = os.Getenv("S3_BUCKETNAME")
 	dynamobdTable = os.Getenv("DYNAMODB_TABLE")
