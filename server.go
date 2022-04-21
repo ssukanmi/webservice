@@ -30,6 +30,7 @@ func setupRouter() *gin.Engine {
 
 	//user routes
 	r.POST("/v1/user", userController.CreateUser)
+	r.GET("/v1/verifyUserEmail", userController.VerifyUserEmail)
 	//authenticated user routes
 	authRoutes := r.Group("/v1/user/self", middleware.BasicAuth(db))
 	{

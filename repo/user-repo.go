@@ -28,6 +28,7 @@ type UserRepository interface {
 	GetUserProfilePic(username string) (entity.UserImage, error)
 	UpdateUserProfilePic(username string, file *multipart.FileHeader) (entity.UserImage, error)
 	DeleteUserProfilePic(username string) error
+	VerifyUserEmail(username string) error
 }
 
 type userRepo struct {
@@ -49,6 +50,16 @@ func (ur *userRepo) InsertUser(user entity.User) (entity.User, error) {
 	user.Password = service.HashPassword(user.Password)
 	res := ur.connection.Save(&user)
 	return user, res.Error
+}
+
+func (ur *userRepo) VerifyUserEmail(username string) error {
+	currentUser, err := ur.FindByUsername(username)
+	if err != nil {
+		return err
+	}
+	currentUser.Verified = true
+	res := ur.connection.Save(&currentUser)
+	return res.Error
 }
 
 func (ur *userRepo) FindByUsername(username string) (entity.User, error) {

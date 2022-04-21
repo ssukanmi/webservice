@@ -15,6 +15,7 @@ type User struct {
 	Username  string    `gorm:"unique;type:varchar(255)" json:"username"`
 	CreatedAt time.Time `gorm:"column:account_created" json:"account_created"`
 	UpdatedAt time.Time `gorm:"column:account_updated" json:"account_updated"`
+	Verified  bool      `gorm:"type:bool;default:false" json:"-"`
 }
 
 func (user *User) BeforeCreate(tx *gorm.DB) error {
