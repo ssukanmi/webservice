@@ -241,7 +241,7 @@ func (uc *userController) VerifyUserEmail(c *gin.Context) {
 		return
 	}
 
-	if emailToken.TTL < time.Now().Unix() {
+	if emailToken.TTL-180 < time.Now().Unix() {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"message": "Error verifying email (token expired!!)",
 		})

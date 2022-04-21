@@ -16,11 +16,4 @@
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8080
-[GIN] 2022/04/21 - 05:51:02 | 400 |  309.510209ms |             ::1 | GET      "/v1/verifyUserEmail?email=first@xampe.com&token=29467b06a00005d95c73b65af2c5f111"
-[GIN] 2022/04/21 - 05:51:32 | 201 |  340.276459ms |             ::1 | POST     "/v1/user"
-[GIN] 2022/04/21 - 05:51:40 | 400 |   39.005084ms |             ::1 | GET      "/v1/verifyUserEmail?email=first2@xampe.com&token=29467b06a00005d95c73b65af2c5f111"
-[GIN] 2022/04/21 - 05:52:10 | 202 |   56.242416ms |             ::1 | GET      "/v1/verifyUserEmail?email=first2@xampe.com&token=98816ee79e32f2c4c81a3fba28aa1234"
-[GIN] 2022/04/21 - 05:52:26 | 401 |     2.35425ms |             ::1 | GET      "/v1/user/self"
-[GIN] 2022/04/21 - 05:52:37 | 401 |    1.212375ms |             ::1 | GET      "/v1/user/self"
-[GIN] 2022/04/21 - 05:52:38 | 401 |    1.096542ms |             ::1 | GET      "/v1/user/self"
-[GIN] 2022/04/21 - 05:52:40 | 200 |    3.751167ms |             ::1 | GET      "/v1/user/self"
+[GIN] 2022/04/21 - 07:14:04 | 500 |  316.249584ms |             ::1 | GET      "/v1/verifyUserEmail?email=first@xampe.com&token=c08affaad09ea725e2e99e158d0261d0"
