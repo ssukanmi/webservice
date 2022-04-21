@@ -16,4 +16,4 @@
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8080
-[GIN] 2022/04/21 - 07:14:04 | 500 |  316.249584ms |             ::1 | GET      "/v1/verifyUserEmail?email=first@xampe.com&token=c08affaad09ea725e2e99e158d0261d0"
+[GIN] 2022/04/21 - 15:18:20 | 400 |     599.202ms |             ::1 | POST     "/v1/user"
