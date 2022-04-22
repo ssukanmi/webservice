@@ -51,6 +51,7 @@ func NewUserController(userRepo repo.UserRepository) UserController {
 	}
 	s3BucketName = os.Getenv("S3_BUCKETNAME")
 	dynamobdTable = os.Getenv("DYNAMODB_TABLE")
+	accountID = os.Getenv("ACCOUNT_ID")
 	return &userController{
 		userRepo: userRepo,
 	}
