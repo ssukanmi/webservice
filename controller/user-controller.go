@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"reflect"
 	"strings"
 	"time"
 
@@ -214,7 +215,7 @@ func (uc *userController) VerifyUserEmail(c *gin.Context) {
 		return
 	}
 
-	if result == nil {
+	if reflect.ValueOf(result).Elem().FieldByName("Item") == (reflect.Value{}) {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"message": "Error verifying email (item doesn't exist or expired) -- " + err.Error(),
 		})
