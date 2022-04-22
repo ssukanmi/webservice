@@ -214,7 +214,7 @@ func (uc *userController) VerifyUserEmail(c *gin.Context) {
 		return
 	}
 
-	if len(result.Item) == 0 {
+	if result == nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"message": "Error verifying email (item doesn't exist or expired) -- " + err.Error(),
 		})
