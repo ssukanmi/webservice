@@ -9,10 +9,10 @@ import (
 	"os"
 	"time"
 
-	sql "github.com/go-sql-driver/mysql"
+	"github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
 	"github.com/ssukanmi/webservice/entity"
-	"gorm.io/driver/mysql"
+	gormsql "gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
@@ -49,11 +49,11 @@ func SetupDatabaseConnection() *gorm.DB {
 	if ok := rootCertPool.AppendCertsFromPEM(pem); !ok {
 		fmt.Println("Failed to append PEM.")
 	}
-	sql.RegisterTLSConfig("custom", &tls.Config{
+	mysql.RegisterTLSConfig("custom", &tls.Config{
 		RootCAs: rootCertPool,
 	})
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local&tls=custom", dbUser, dbPass, dbHost, dbPort, dbName)
-	db, err := gorm.Open(mysql.New(mysql.Config{
+	db, err := gorm.Open(gormsql.New(gormsql.Config{
 		DriverName: "mysql",
 		DSN:        dsn,
 	}), &gorm.Config{
