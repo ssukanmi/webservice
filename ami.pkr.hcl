@@ -82,12 +82,12 @@ build {
       "sudo yum update -y",
     ]
   }
-  // provisioner "shell" {
-  //   inline = [
-  //     "sleep 5",
-  //     "sudo yum install mysql -y",
-  //   ]
-  // }
+  provisioner "shell" {
+    inline = [
+      "sleep 5",
+      "sudo yum install mysql -y",
+    ]
+  }
   provisioner "shell" {
     inline = [
       "sleep 5",

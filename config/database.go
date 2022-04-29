@@ -1,14 +1,18 @@
 package config
 
 import (
+	"crypto/tls"
+	"crypto/x509"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"time"
 
+	"github.com/go-sql-driver/mysql"
 	"github.com/joho/godotenv"
 	"github.com/ssukanmi/webservice/entity"
-	"gorm.io/driver/mysql"
+	gormsql "gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
@@ -23,6 +27,7 @@ func SetupDatabaseConnection() *gorm.DB {
 	dbHost := os.Getenv("DB_HOST")
 	dbName := os.Getenv("DB_NAME")
 	dbPort := os.Getenv("DB_PORT")
+	rootCert := os.Getenv("ROOT_CERT")
 
 	gormLog, _ := os.Create("gorm.log")
 
@@ -36,8 +41,22 @@ func SetupDatabaseConnection() *gorm.DB {
 		},
 	)
 
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", dbUser, dbPass, dbHost, dbPort, dbName)
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+	rootCertPool := x509.NewCertPool()
+	pem, err := ioutil.ReadFile(rootCert)
+	if err != nil {
+		fmt.Println("Failed to read root certificate path")
+	}
+	if ok := rootCertPool.AppendCertsFromPEM(pem); !ok {
+		fmt.Println("Failed to append PEM.")
+	}
+	mysql.RegisterTLSConfig("custom", &tls.Config{
+		RootCAs: rootCertPool,
+	})
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local&tls=custom", dbUser, dbPass, dbHost, dbPort, dbName)
+	db, err := gorm.Open(gormsql.New(gormsql.Config{
+		DriverName: "mysql",
+		DSN:        dsn,
+	}), &gorm.Config{
 		Logger: newLogger,
 	})
 	if err != nil {
