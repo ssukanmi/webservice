@@ -1,5 +1,7 @@
 # webservice
 a web api application
+Serverless code using aws lambda: [Serveless](https://github.com/ssukanmi/serverless "FaaS using aws lambda")
+Infrastructure as code using AWS CloudFormation: [Infrastructure](https://github.com/ssukanmi/infrastructure "Setup for AWS infrastructure using IaC")
 
 
 ### Prerequisites:
